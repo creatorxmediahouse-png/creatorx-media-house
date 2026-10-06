@@ -49,6 +49,15 @@ node dist/index.js --bridge simulator --transport http
 # MCP endpoint: http://127.0.0.1:3000/mcp
 ```
 
+## Downloadable packages (no terminal for end users)
+
+`npm run package` builds two files in `release/`:
+
+- `after-effects-mcp.mcpb` is a Claude Desktop extension. Users double-click it and click Install, and Claude Desktop runs it with its built-in Node.js.
+- `AfterEffectsMCP-Panel.zip` holds the panel plus "Install on Mac.command" and "Install on Windows.bat", which do what `npm run install-extension` does with a double-click.
+
+The panel isn't a signed `.zxp`, because Adobe's `ZXPSignCmd` only runs on macOS and Windows. To make one, run `ZXPSignCmd -selfSignedCert ...` and then `ZXPSignCmd -sign extension AfterEffectsMCP.zxp cert.p12 <password>` on one of those machines.
+
 ## Connect a client
 
 ### Claude Desktop
@@ -143,6 +152,7 @@ ExtendScript is ECMAScript 3, so tool scripts can't use `JSON`, `let`/`const`, a
 - `src/jsx/`: shared ExtendScript helpers and script assembly
 - `extension/`: the After Effects panel (CEP). `js/bridge-server.js` is its local HTTP bridge
 - `scripts/install-extension.mjs`: installs or removes the panel
+- `scripts/package.mjs`, `packaging/`: builds the `.mcpb` and the panel zip
 - `src/bridge/panel-bridge.ts`: sends scripts to the panel, and the `auto` bridge
 - `src/bridge/script-bridge.ts`: runs scripts through the OS when the panel isn't there
 - `src/bridge/simulator.ts`: in-memory After Effects for tests and dry runs

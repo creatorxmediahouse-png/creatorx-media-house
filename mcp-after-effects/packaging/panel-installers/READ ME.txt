@@ -1,0 +1,21 @@
+After Effects MCP panel
+=======================
+
+This panel lets AI apps such as Claude control After Effects on this computer.
+
+Install
+  Mac:      double-click "Install on Mac.command".
+            If macOS says it can't be opened, right-click it, choose Open, then Open again.
+  Windows:  double-click "Install on Windows.bat".
+            If Windows shows "Windows protected your PC", click More info, then Run anyway.
+
+Then restart After Effects and open Window > Extensions > After Effects MCP.
+The panel should show a green dot and "Ready for AI clients".
+It opens by itself with After Effects from then on.
+
+Connect Claude
+  Double-click "after-effects-mcp.mcpb" (a separate download) to add After Effects to
+  Claude Desktop, and click Install. Then ask Claude: "List my After Effects compositions."
+
+Remove
+  Double-click "Uninstall on Mac.command" or "Uninstall on Windows.bat".

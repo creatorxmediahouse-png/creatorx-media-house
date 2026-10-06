@@ -22,13 +22,15 @@
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
     "test": "node --import tsx --test test/*.test.ts",
     "install-extension": "node scripts/install-extension.mjs",
-    "uninstall-extension": "node scripts/install-extension.mjs --uninstall"
+    "uninstall-extension": "node scripts/install-extension.mjs --uninstall",
+    "package": "npm run build && node scripts/package.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
     "zod": "^4.6.5"
   },
   "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2",
     "@types/node": "^22.20.5",
     "acorn": "^8.19.0",
     "tsx": "^4.23.15",
