@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>After Effects MCP</title>
+    <link rel="stylesheet" href="css/panel.css" />
+  </head>
+  <body>
+    <header>
+      <span id="dot" class="dot off"></span>
+      <div>
+        <div id="status" class="status">Starting…</div>
+        <div id="detail" class="detail"></div>
+      </div>
+    </header>
+
+    <section class="row">
+      <label for="port">Port</label>
+      <input id="port" type="number" min="1024" max="65535" />
+      <button id="toggle">Stop</button>
+    </section>
+
+    <section class="stats">
+      <div><span id="calls">0</span> calls handled</div>
+    </section>
+
+    <section>
+      <div class="label">Activity</div>
+      <ol id="log"></ol>
+    </section>
+
+    <footer>
+      AI clients connect through the <code>after-effects-mcp</code> server, which finds this panel automatically.
+    </footer>
+
+    <script src="js/bridge-server.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

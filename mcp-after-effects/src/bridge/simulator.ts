@@ -529,41 +529,52 @@ export class SimulatorBridge implements AeBridge {
     return project;
   }
 
+  /**
+   * Behaves like CEP's `evalScript` in After Effects: runs the source and
+   * returns its completion value as a string, or "EvalScript error." if it throws.
+   */
+  evalScript(source: string): string {
+    const app = {
+      project,
+      version: "25.0.0 (simulator)",
+      beginUndoGroup: (name: string) => this.undoGroups.push(name),
+      endUndoGroup: () => undefined,
+    };
+    const context = vm.createContext({
+      app,
+      CompItem,
+      FootageItem,
+      AVLayer,
+      TextLayer,
+      ShapeLayer,
+      CameraLayer,
+      LightLayer,
+      SolidSource,
+      File: function SimFileCtor(p: string) {
+        return new SimFile(p);
+      },
+      ImportOptions,
+      KeyframeEase,
+      PropertyType,
+      PropertyValueType,
+      KeyframeInterpolationType,
+      RQItemStatus,
+    });
+    vm.runInContext(STRIP_BUILTINS, context);
+    try {
+      return String(vm.runInContext(source, context, { filename: "tool.jsx", timeout: 5000 }));
+    } catch {
+      return "EvalScript error.";
+    }
+  }
+
   run(body: string, args: unknown): Promise<unknown> {
     return this.queue.enqueue(async () => {
-      let emitted: string | undefined;
-      const script = composeScript(body, args, "function (json) { __hostEmit(json); }");
+      const script = composeScript(body, args, "function (json) { return json; }");
       this.scripts.push(script);
-      const app = {
-        project,
-        beginUndoGroup: (name: string) => this.undoGroups.push(name),
-        endUndoGroup: () => undefined,
-      };
-      const context = vm.createContext({
-        app,
-        __hostEmit: (json: string) => (emitted = json),
-        CompItem,
-        FootageItem,
-        AVLayer,
-        TextLayer,
-        ShapeLayer,
-        CameraLayer,
-        LightLayer,
-        SolidSource,
-        File: function SimFileCtor(p: string) {
-          return new SimFile(p);
-        },
-        ImportOptions,
-        KeyframeEase,
-        PropertyType,
-        PropertyValueType,
-        KeyframeInterpolationType,
-        RQItemStatus,
-      });
-      vm.runInContext(STRIP_BUILTINS, context);
-      vm.runInContext(script, context, { filename: "tool.jsx", timeout: 5000 });
-      if (emitted === undefined) throw new Error("Script finished without emitting a result");
-      const envelope = JSON.parse(emitted) as ScriptEnvelope;
+      const output = this.evalScript(script);
+      if (output === "EvalScript error.") throw new Error("Script failed to run");
+      const envelope = JSON.parse(output) as ScriptEnvelope;
       if (!envelope.ok) throw new AeScriptError(envelope.error ?? "Unknown error", envelope.line);
       return envelope.result;
     });

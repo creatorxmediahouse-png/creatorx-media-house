@@ -1,0 +1,61 @@
+/* Matches After Effects' dark panel chrome. */
+:root {
+  --bg: #232323;
+  --fg: #d6d6d6;
+  --muted: #8a8a8a;
+  --field: #1a1a1a;
+  --border: #3a3a3a;
+  --accent: #2d8ceb;
+  --ok: #4caf50;
+  --bad: #e5534b;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 12px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 12px/1.4 -apple-system, "Segoe UI", sans-serif;
+}
+header { display: flex; gap: 10px; align-items: center; margin-bottom: 12px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.dot.on { background: var(--ok); }
+.dot.off { background: var(--muted); }
+.dot.error { background: var(--bad); }
+.status { font-weight: 600; font-size: 13px; }
+.detail { color: var(--muted); }
+.row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+input {
+  width: 80px;
+  padding: 4px 6px;
+  background: var(--field);
+  color: var(--fg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+button {
+  margin-left: auto;
+  padding: 4px 12px;
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+button.secondary { background: var(--border); }
+.stats { color: var(--muted); margin-bottom: 10px; }
+.label { color: var(--muted); margin-bottom: 4px; }
+#log {
+  margin: 0;
+  padding: 6px 6px 6px 24px;
+  max-height: 160px;
+  overflow-y: auto;
+  background: var(--field);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  font-family: Menlo, Consolas, monospace;
+  font-size: 11px;
+}
+#log li.bad { color: var(--bad); }
+footer { margin-top: 12px; color: var(--muted); }
+code { color: var(--fg); }

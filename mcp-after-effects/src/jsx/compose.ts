@@ -13,6 +13,8 @@ export function toJsxLiteral(value: unknown): string {
  * `body` is the inside of `function (args) { ... }` and returns the tool's
  * result. `emit` is the source of a `function (json) { ... }` expression that
  * hands the serialized `{ ok, result | error }` envelope back to the bridge.
+ * Whatever `emit` returns is the script's completion value, which is how
+ * CEP's evalScript (the panel bridge) receives the result.
  * Everything lives inside one IIFE so nothing leaks into After Effects' global
  * scope between calls.
  */
@@ -30,7 +32,7 @@ export function composeScript(body: string, args: unknown, emit: string): string
     "} catch (e) {",
     "  __res = { ok: false, error: String(e && e.message ? e.message : e), line: e && e.line };",
     "}",
-    "__emit(AEMCP.stringify(__res));",
+    "return __emit(AEMCP.stringify(__res));",
     "})();",
     "",
   ].join("\n");

@@ -8,7 +8,9 @@
     "after-effects-mcp": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "extension",
+    "scripts"
   ],
   "engines": {
     "node": ">=20"
@@ -18,7 +20,9 @@
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
-    "test": "node --import tsx --test test/*.test.ts"
+    "test": "node --import tsx --test test/*.test.ts",
+    "install-extension": "node scripts/install-extension.mjs",
+    "uninstall-extension": "node scripts/install-extension.mjs --uninstall"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
