@@ -1,0 +1,32 @@
+{
+  "manifest_version": "0.3",
+  "name": "after-effects-mcp",
+  "display_name": "After Effects",
+  "version": "0.1.0",
+  "description": "Control Adobe After Effects: compositions, layers, keyframes and the render queue.",
+  "long_description": "Lets Claude work in the After Effects project you have open. It can list and create compositions, add solid, text, shape, null, camera, light and footage layers, set keyframes with easing, and queue or start renders. Install the After Effects MCP panel in After Effects for the fastest, permission-free connection; without it, scripts are run through the operating system.",
+  "author": { "name": "CreatorX Media House" },
+  "repository": { "type": "git", "url": "https://github.com/creatorxmediahouse-png/creatorx-media-house" },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/index.js"]
+    }
+  },
+  "tools": [
+    { "name": "list_compositions", "description": "List compositions in the open project" },
+    { "name": "create_composition", "description": "Create a composition" },
+    { "name": "add_layer", "description": "Add a solid, text, shape, null, adjustment, camera, light or footage layer" },
+    { "name": "set_keyframes", "description": "Set keyframes on a layer property" },
+    { "name": "add_to_render_queue", "description": "Queue a composition for rendering" },
+    { "name": "get_render_queue", "description": "List the render queue" },
+    { "name": "start_render", "description": "Render the queue in After Effects or Media Encoder" }
+  ],
+  "keywords": ["after effects", "adobe", "motion graphics", "animation", "video"],
+  "compatibility": {
+    "platforms": ["darwin", "win32"],
+    "runtimes": { "node": ">=20.0.0" }
+  }
+}

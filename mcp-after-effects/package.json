@@ -1,0 +1,39 @@
+{
+  "name": "after-effects-mcp",
+  "version": "0.1.0",
+  "description": "MCP server that lets Claude, ChatGPT and other MCP clients control Adobe After Effects",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "after-effects-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "extension",
+    "scripts"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "test": "node --import tsx --test test/*.test.ts",
+    "install-extension": "node scripts/install-extension.mjs",
+    "uninstall-extension": "node scripts/install-extension.mjs --uninstall",
+    "package": "npm run build && node scripts/package.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "^2.1.2",
+    "@types/node": "^22.20.5",
+    "acorn": "^8.19.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
