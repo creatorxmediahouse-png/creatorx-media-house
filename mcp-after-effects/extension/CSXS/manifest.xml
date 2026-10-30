@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.creatorx.aemcp" ExtensionBundleVersion="0.1.0" ExtensionBundleName="After Effects MCP">
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.creatorx.aemcp" ExtensionBundleVersion="0.2.0" ExtensionBundleName="After Effects MCP">
   <ExtensionList>
-    <Extension Id="com.creatorx.aemcp.panel" Version="0.1.0" />
+    <Extension Id="com.creatorx.aemcp.panel" Version="0.2.0" />
+    <Extension Id="com.creatorx.aemcp.bridge" Version="0.2.0" />
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -16,6 +17,7 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
+    <!-- The visible panel. It opens only from Window > Extensions, so closing it keeps it closed. -->
     <Extension Id="com.creatorx.aemcp.panel">
       <DispatchInfo>
         <Resources>
@@ -27,17 +29,37 @@
         </Resources>
         <Lifecycle>
           <AutoVisible>true</AutoVisible>
-          <!-- Start the bridge with After Effects, even before the panel is opened. -->
-          <StartOn>
-            <Event>com.adobe.csxs.events.ApplicationActivate</Event>
-          </StartOn>
         </Lifecycle>
         <UI>
           <Type>Panel</Type>
           <Menu>After Effects MCP</Menu>
           <Geometry>
-            <Size><Height>380</Height><Width>320</Width></Size>
-            <MinSize><Height>220</Height><Width>240</Width></MinSize>
+            <Size><Height>600</Height><Width>360</Width></Size>
+            <MinSize><Height>320</Height><Width>260</Width></MinSize>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+    <!-- A hidden helper that runs the bridge for AI apps from the moment After Effects starts. -->
+    <Extension Id="com.creatorx.aemcp.bridge">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./bridge.html</MainPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>false</AutoVisible>
+          <StartOn>
+            <Event>com.adobe.csxs.events.ApplicationActivate</Event>
+          </StartOn>
+        </Lifecycle>
+        <UI>
+          <Type>Custom</Type>
+          <Geometry>
+            <Size><Height>1</Height><Width>1</Width></Size>
           </Geometry>
         </UI>
       </DispatchInfo>

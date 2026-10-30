@@ -12,28 +12,68 @@
         <div id="status" class="status">Starting…</div>
         <div id="detail" class="detail"></div>
       </div>
+      <button type="button" id="close" class="close" title="Close panel (AI apps stay connected)" aria-label="Close panel">&times;</button>
     </header>
 
-    <section class="row">
-      <label for="port">Port</label>
-      <input id="port" type="number" min="1024" max="65535" />
-      <button id="toggle">Stop</button>
-    </section>
+    <main id="chat">
+      <div id="messages">
+        <div id="welcome" class="msg note">Ask the AI to do something in this project, for example "Make a 1080p comp called Intro with a title that fades in."</div>
+      </div>
+      <div id="using" class="hint"></div>
+      <form id="composer">
+        <textarea id="prompt" rows="3" placeholder="Ask the AI… (Enter to send, Shift+Enter for a new line)"></textarea>
+        <div class="row">
+          <button type="button" id="newChat" class="secondary">New chat</button>
+          <button type="submit" id="send">Send</button>
+        </div>
+      </form>
+    </main>
 
-    <section class="stats">
-      <div><span id="calls">0</span> calls handled</div>
-    </section>
+    <details id="settings">
+      <summary>Settings</summary>
+      <section>
+        <label for="provider">AI</label>
+        <select id="provider"></select>
+        <div id="baseUrlRow">
+          <label for="baseUrl">API address</label>
+          <input id="baseUrl" type="text" placeholder="https://openrouter.ai/api/v1" spellcheck="false" />
+        </div>
+        <label for="apiKey">API key</label>
+        <div class="row">
+          <input id="apiKey" type="password" autocomplete="off" spellcheck="false" />
+          <button type="button" id="saveKey">Save</button>
+        </div>
+        <div id="keyHelp" class="hint"></div>
+        <div class="hint">Keys are saved only on this computer. Usage is billed to the key's account.</div>
+        <label for="model">Model</label>
+        <input id="model" type="text" list="modelList" spellcheck="false" />
+        <datalist id="modelList"></datalist>
+        <div id="modelHint" class="hint"></div>
+      </section>
+    </details>
 
-    <section>
-      <div class="label">Activity</div>
-      <ol id="log"></ol>
-    </section>
-
-    <footer>
-      AI clients connect through the <code>after-effects-mcp</code> server, which finds this panel automatically.
-    </footer>
+    <details id="connection">
+      <summary>Connection for other AI apps</summary>
+      <section class="row">
+        <label for="port">Port</label>
+        <input id="port" type="number" min="1024" max="65535" />
+        <button id="toggle">Stop</button>
+      </section>
+      <section class="stats">
+        <div><span id="calls">0</span> calls handled</div>
+      </section>
+      <section>
+        <div class="label">Activity</div>
+        <ol id="log"></ol>
+      </section>
+      <footer>
+        Claude Desktop, ChatGPT and other apps connect through the <code>after-effects-mcp</code> server, which finds this panel automatically.
+      </footer>
+    </details>
 
     <script src="js/bridge-server.js"></script>
+    <script src="js/tools.generated.js"></script>
+    <script src="js/agent.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

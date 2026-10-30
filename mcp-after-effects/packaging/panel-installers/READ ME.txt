@@ -11,9 +11,20 @@ Install
 
 Then restart After Effects and open Window > Extensions > After Effects MCP.
 The panel should show a green dot and "Ready for AI clients".
-It opens by itself with After Effects from then on.
+Close it with the x in its top-right corner. It stays closed until you open it
+again from Window > Extensions. AI apps such as Claude Desktop can still reach
+After Effects while the panel is closed.
 
-Connect Claude
+Chat with an AI inside After Effects
+  Open Settings in the panel, pick an AI (Claude, ChatGPT, Gemini, or another
+  OpenAI-compatible service), paste its API key, and press Save. Then type what
+  you want in the chat box, for example
+  "Make a 1080p comp called Intro with a title that fades in."
+  API keys come from console.anthropic.com (Claude), platform.openai.com (ChatGPT)
+  or aistudio.google.com (Gemini). Usage is billed to the key's account.
+  Cmd+Z or Ctrl+Z undoes each change.
+
+Or connect Claude Desktop
   Double-click "after-effects-mcp.mcpb" (a separate download) to add After Effects to
   Claude Desktop, and click Install. Then ask Claude: "List my After Effects compositions."
 
